@@ -1,0 +1,150 @@
+======================================================================
+Timestamp: 2026-06-18 15:22:46
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 1
+Valid Responses: 96/102
+Agreement with Humans: 43.75%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 15:34:40
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 2
+Valid Responses: 94/102
+Agreement with Humans: 44.68%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 15:46:30
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 3
+Valid Responses: 94/102
+Agreement with Humans: 44.68%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 16:23:10
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 1
+Valid Responses: 101/102
+Agreement with Humans: 39.60%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 16:56:05
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 2
+Valid Responses: 101/102
+Agreement with Humans: 39.60%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:29:08
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 3
+Valid Responses: 101/102
+Agreement with Humans: 39.60%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:30:00
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 1
+Valid Responses: 0/102
+Agreement with Humans: 0.00%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:30:00
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 2
+Valid Responses: 0/102
+Agreement with Humans: 0.00%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:30:00
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 3
+Valid Responses: 0/102
+Agreement with Humans: 0.00%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:42:28
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 1
+Valid Responses: 32/102
+Agreement with Humans: 62.50%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 17:54:29
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 2
+Valid Responses: 30/102
+Agreement with Humans: 43.33%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 18:06:15
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 3
+Valid Responses: 31/102
+Agreement with Humans: 58.06%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 18:19:57
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 1
+Valid Responses: 34/102
+Agreement with Humans: 55.88%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 18:31:14
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 2
+Valid Responses: 39/102
+Agreement with Humans: 64.10%
+======================================================================
+
+======================================================================
+Timestamp: 2026-06-18 18:43:35
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: independent (human response withheld from LLM)
+Round: 3
+Valid Responses: 27/102
+Agreement with Humans: 62.96%
+======================================================================
+
