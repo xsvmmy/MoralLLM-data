@@ -178,3 +178,51 @@ Ethical Framework Selection (valid responses only):
     Utilitarianism: 6
 ======================================================================
 
+======================================================================
+Timestamp: 2026-07-28 21:18:34
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Valid Responses: 86/86
+Agreement with Humans: 76.74%
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 33
+    Utilitarianism: 25
+    Deontology: 20
+    Virtue Ethics: 4
+    Justice: 4
+======================================================================
+
+======================================================================
+Timestamp: 2026-07-28 22:22:48
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Valid Responses: 86/86
+Agreement with Humans: 70.93%
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 37
+    Utilitarianism: 29
+    Deontology: 14
+    Virtue Ethics: 3
+    Justice: 3
+======================================================================
+
+======================================================================
+Timestamp: 2026-07-28 23:28:55
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Valid Responses: 86/86
+Agreement with Humans: 76.74%
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 40
+    Utilitarianism: 27
+    Deontology: 12
+    Justice: 6
+    Virtue Ethics: 1
+======================================================================
+
