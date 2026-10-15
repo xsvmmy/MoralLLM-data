@@ -1,0 +1,227 @@
+======================================================================
+Timestamp: 2026-08-17 13:24:00
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 200/200
+Agreement with Humans: 86/200 (43.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 198
+    Common Sense Morality: 1
+    Virtue Ethics: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 14:00:28
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 200/200
+Agreement with Humans: 80/200 (40.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 194
+    Common Sense Morality: 5
+    Virtue Ethics: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 14:36:59
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 200/200
+Agreement with Humans: 81/200 (40.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 194
+    Common Sense Morality: 3
+    Virtue Ethics: 2
+    Justice: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 17:28:01
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 198/200
+Agreement with Humans: 66/198 (33.33%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 194
+    Deontology: 3
+    Common Sense Morality: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 17:36:50
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 198/200
+Agreement with Humans: 67/198 (33.84%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 189
+    Common Sense Morality: 5
+    Deontology: 4
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 17:45:54
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 199/200
+Agreement with Humans: 68/199 (34.17%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 191
+    Deontology: 7
+    Common Sense Morality: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 19:52:04
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 136/200
+Agreement with Humans: 89/136 (65.44%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 74
+    Utilitarianism: 33
+    Virtue Ethics: 12
+    Justice: 10
+    Deontology: 7
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 20:58:58
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 137/200
+Agreement with Humans: 92/137 (67.15%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 81
+    Utilitarianism: 39
+    Justice: 7
+    Deontology: 5
+    Virtue Ethics: 5
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 22:04:58
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 141/200
+Agreement with Humans: 99/141 (70.21%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 87
+    Utilitarianism: 42
+    Virtue Ethics: 6
+    Deontology: 4
+    Justice: 2
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-17 23:43:49
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 179/200
+Agreement with Humans: 99/179 (55.31%)
+Ethical Framework Selection (valid responses only):
+    Justice: 90
+    Deontology: 69
+    Utilitarianism: 19
+    Common Sense Morality: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-18 01:20:30
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 185/200
+Agreement with Humans: 96/185 (51.89%)
+Ethical Framework Selection (valid responses only):
+    Justice: 91
+    Deontology: 66
+    Utilitarianism: 23
+    Common Sense Morality: 5
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-18 02:57:13
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 179/200
+Agreement with Humans: 90/179 (50.28%)
+Ethical Framework Selection (valid responses only):
+    Justice: 74
+    Deontology: 73
+    Utilitarianism: 26
+    Common Sense Morality: 4
+    Virtue Ethics: 2
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-18 13:55:11
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 199/200
+Agreement with Humans: 102/199 (51.26%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 102
+    Common Sense Morality: 64
+    Deontology: 17
+    Justice: 13
+    Virtue Ethics: 3
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-18 21:04:30
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 199/200
+Agreement with Humans: 110/199 (55.28%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 96
+    Common Sense Morality: 59
+    Deontology: 18
+    Justice: 16
+    Virtue Ethics: 10
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-19 22:05:57
+Model: glm_4_7_flash
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 198/200
+Agreement with Humans: 95/198 (47.98%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 93
+    Common Sense Morality: 66
+    Justice: 17
+    Deontology: 15
+    Virtue Ethics: 7
+======================================================================
+

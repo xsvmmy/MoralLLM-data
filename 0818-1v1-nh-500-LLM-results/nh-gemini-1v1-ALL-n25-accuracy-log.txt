@@ -1,0 +1,50 @@
+
+======================================================================
+Timestamp: 2026-08-25 10:36:07
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 1
+Valid Responses: 499/500
+Agreement with Humans: 66.53%
+Ethical Framework Selection (valid responses only):
+    Justice: 360
+    Utilitarianism: 119
+    Common Sense Morality: 8
+    Deontology: 7
+    Virtue Ethics: 4
+    UNRECOGNIZED: 1
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-25 10:47:48
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 2
+Valid Responses: 500/500
+Agreement with Humans: 66.80%
+Ethical Framework Selection (valid responses only):
+    Justice: 370
+    Utilitarianism: 108
+    Common Sense Morality: 10
+    Deontology: 8
+    Virtue Ethics: 4
+======================================================================
+
+======================================================================
+Timestamp: 2026-08-25 10:59:26
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response NOT provided
+Round: 3
+Valid Responses: 500/500
+Agreement with Humans: 67.60%
+Ethical Framework Selection (valid responses only):
+    Justice: 358
+    Utilitarianism: 119
+    Common Sense Morality: 10
+    Deontology: 9
+    Virtue Ethics: 4
+======================================================================
+

@@ -1,0 +1,48 @@
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-outputs/nh_alph_1v1_500_results_gemini_500_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_500_results_gemini_500_round1_all.csv
+  Timestamp:           2026-10-04 17:07:48
+  Processed:           500
+  Matches human:       291/500 (58.2%)
+  Judge invoked:       52/500
+  Judge parse errors:  14/52 (26.9%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-outputs/nh_alph_1v1_500_results_gemini_500_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_500_results_gemini_500_round2_all.csv
+  Timestamp:           2026-10-05 17:19:54
+  Processed:           500
+  Matches human:       289/500 (57.8%)
+  Judge invoked:       52/500
+  Judge parse errors:  24/52 (46.2%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-outputs/nh_alph_1v1_500_results_gemini_500_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_500_results_gemini_500_round3_all.csv
+  Timestamp:           2026-10-06 17:04:33
+  Processed:           500
+  Matches human:       290/500 (58.0%)
+  Judge invoked:       40/500
+  Judge parse errors:  12/40 (30.0%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-outputs/nh_alph_1v1_500_results_gemma4_500_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_500_results_gemma4_500_round1_all.csv
+  Timestamp:           2026-10-07 16:43:18
+  Processed:           500
+  Matches human:       295/500 (59.0%)
+  Judge invoked:       41/500
+  Judge parse errors:  17/41 (41.5%)
+============================================================

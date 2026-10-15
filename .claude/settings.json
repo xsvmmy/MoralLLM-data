@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(cp RAW-accuracy-log.txt /tmp/RAW-accuracy-log.before2.txt)",
+      "Bash(python3 raw_accuracy_log.py)",
+      "Read(//tmp/**)",
+      "Bash(python3 convert_raw_for_debate.py)"
+    ]
+  }
+}
