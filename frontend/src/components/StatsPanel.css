@@ -241,6 +241,7 @@
 
 .action-stay  { color: #60a5fa; }
 .action-swerve { color: #f59e0b; }
+.action-parse-error { color: #f87171; }
 
 .reward-pos { color: #34d399; }
 .reward-neg { color: #f87171; }
@@ -499,6 +500,7 @@
 .type-species        { background: #2a1a0a; color: #fcd34d; }
 .type-random         { background: #1f2937; color: #9ca3af; }
 .type-llm             { background: #312e81; color: #c7d2fe; }
+.type-debate          { background: #4c1d95; color: #ddd6fe; }
 
 .rl-attr-label {
   font-size: 0.8rem;

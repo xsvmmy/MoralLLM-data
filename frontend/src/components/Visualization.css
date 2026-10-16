@@ -110,7 +110,9 @@
 }
 
 .sim-window-dropdown-item {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   width: 100%;
   text-align: left;
   background: white;
@@ -127,6 +129,22 @@
 }
 .sim-window-dropdown-item + .sim-window-dropdown-item {
   border-top: 1px solid #f0f1fa;
+}
+
+.sim-window-dropdown-check {
+  flex-shrink: 0;
+  width: 14px;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.sim-window-dropdown-item-active {
+  background: #eef0fd;
+  color: #4338ca;
+  font-weight: 700;
+}
+.sim-window-dropdown-item-active:hover {
+  background: #e0e3fa;
 }
 
 .sim-window-dropdown-empty {

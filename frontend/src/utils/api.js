@@ -146,3 +146,30 @@ export async function getLLMResultById(datasetFilename, responseId) {
     `/api/llm/scenarios/by-id?dataset=${encodeURIComponent(datasetFilename)}&response_id=${encodeURIComponent(responseId)}`
   );
 }
+
+// ── LLM debate result CSVs ───────────────────────────────────────────────────
+
+/**
+ * List the .csv filenames available at the project root carrying per-scenario
+ * LLM debate verdicts. Returns { datasets: string[] }.
+ */
+export async function listDebateDatasets() {
+  return fetchAPI('/api/debate/datasets');
+}
+
+/**
+ * Fetch a random row from an LLM debate result dataset.
+ */
+export async function getDebateResultRandom(datasetFilename) {
+  return fetchAPI(`/api/debate/scenarios/random?dataset=${encodeURIComponent(datasetFilename)}`);
+}
+
+/**
+ * Fetch the debate result for a specific response_id — used to line up the
+ * LLM Debate section with whatever scenario the Human side currently has loaded.
+ */
+export async function getDebateResultById(datasetFilename, responseId) {
+  return fetchAPI(
+    `/api/debate/scenarios/by-id?dataset=${encodeURIComponent(datasetFilename)}&response_id=${encodeURIComponent(responseId)}`
+  );
+}

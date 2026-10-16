@@ -16,18 +16,26 @@ import CrossingSignalSVG from './CrossingSignalSVG';
  * Props:
  *   label           — header text ("Human" | "LLM" | "LLM Debate")
  *   datasets        — string[] of .csv filenames available to load
+ *   activeDataset   — filename currently loaded for this window, or null —
+ *                     highlighted in the dropdown so it's obvious at a glance
  *   onLoadCSV       — (datasetFilename) => void, called when a menu item is picked
  *   loadingScenario — true while a dataset load is in flight (disables the button)
  *   scenario        — scenario dict (lane1_chars, lane2_chars, traffic_light, …) or null
- *   action          — "stay" | "swerve" | undefined
+ *   action          — "stay" | "swerve" | undefined — THIS window's own recorded
+ *                      choice (human_choice / llm_judgment / debate_judgment),
+ *                      independent of the other two windows
  *   harmedGroup     — "pedestrians" | "passengers" | undefined
  *   animPhase       — "initial" | "action" | "result"
  *   isDeciding      — true while the decision is being computed (badge overlay)
  *   isLoading       — true while the initial scenario is still being fetched
+ *   noVerdictLabel  — text shown at the 'result' phase when this window has no
+ *                     action yet (no data loaded, or a parse error) — default
+ *                     'No verdict available'
  */
 function AVSimWindow({
-  label, datasets, onLoadCSV, loadingScenario,
+  label, datasets, activeDataset, onLoadCSV, loadingScenario,
   scenario, action, harmedGroup, animPhase, isDeciding, isLoading,
+  noVerdictLabel = 'No verdict available',
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -84,7 +92,7 @@ function AVSimWindow({
           className="btn-load-csv-window"
           onClick={() => setMenuOpen((open) => !open)}
           disabled={loadingScenario || !datasets.length}
-          title="Load a scenario from a CSV dataset"
+          title={activeDataset ? `Loaded: ${activeDataset}` : 'Load a scenario from a CSV dataset'}
         >
           {loadingScenario ? 'Loading…' : 'Load CSV'} <span className="btn-load-csv-caret">▾</span>
         </button>
@@ -94,15 +102,19 @@ function AVSimWindow({
             {datasets.length === 0 ? (
               <div className="sim-window-dropdown-empty">No CSV files found</div>
             ) : (
-              datasets.map((filename) => (
-                <button
-                  key={filename}
-                  className="sim-window-dropdown-item"
-                  onClick={() => handlePick(filename)}
-                >
-                  {filename}
-                </button>
-              ))
+              datasets.map((filename) => {
+                const isActive = filename === activeDataset;
+                return (
+                  <button
+                    key={filename}
+                    className={`sim-window-dropdown-item${isActive ? ' sim-window-dropdown-item-active' : ''}`}
+                    onClick={() => handlePick(filename)}
+                  >
+                    <span className="sim-window-dropdown-check">{isActive ? '✓' : ''}</span>
+                    {filename}
+                  </button>
+                );
+              })
             )}
           </div>
         )}
@@ -192,7 +204,11 @@ function AVSimWindow({
 
         {animPhase === 'result' && (
           <div className="road-result-overlay">
-            {action === 'stay' ? 'Stayed in Lane 1' : 'Swerved to Lane 2'}
+            {action === 'stay'
+              ? 'Stayed in Lane 1'
+              : action === 'swerve'
+                ? 'Swerved to Lane 2'
+                : noVerdictLabel}
           </div>
         )}
 

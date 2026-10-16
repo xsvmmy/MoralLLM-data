@@ -4,12 +4,13 @@ API Routes for Scenario Management
 Includes:
 - CRUD endpoints for scenarios (DB-backed)
 - Moral Machine CSV scenario lookup (random / paginated), loadable from any
-  .csv file found at the project root (see /mm/datasets)
-- LLM result CSV lookup (random / by response_id), for CSVs that already
-  carry a per-scenario LLM judgment (see /llm/datasets)
+  .csv file in human-data/ (see /mm/datasets)
+- LLM result CSV lookup (random / by response_id), loadable from any .csv
+  file in LLM-data/ (see /llm/datasets)
+- LLM debate result CSV lookup (random / by response_id), loadable from any
+  .csv file in LLM-debate-data/ (see /debate/datasets)
 """
 
-import csv
 import glob
 import os
 import random
@@ -31,121 +32,89 @@ from modules.data_storage import ScenarioStorage
 from modules.simulation_logic import SimulationEngine
 from modules.csv_loader import load_csv_scenarios
 from modules.llm_results_loader import load_llm_results
+from modules.llm_debate_loader import load_debate_results
 
 router = APIRouter(prefix="/api", tags=["scenarios"])
 
 simulation_engine = SimulationEngine()
 
 # ---------------------------------------------------------------------------
-# Path constants
+# Path constants — each kind of CSV lives in its own project-root subfolder.
 # ---------------------------------------------------------------------------
 
-_PROJECT_ROOT       = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+_HUMAN_DATA_DIR  = os.path.join(_PROJECT_ROOT, "human-data")
+_LLM_DATA_DIR    = os.path.join(_PROJECT_ROOT, "LLM-data")
+_DEBATE_DATA_DIR = os.path.join(_PROJECT_ROOT, "LLM-debate-data")
+
 _DEFAULT_CSV_FILENAME = "filtered_responses.csv"
 
-# ---------------------------------------------------------------------------
-# CSV "kind" sniffing — distinguishes raw Moral Machine survey CSVs
-# (ResponseID + Intervention, two rows per scenario) from LLM result CSVs
-# (ID + LLM_Judgment, one row per scenario), by header only.
-# ---------------------------------------------------------------------------
 
-def _sniff_csv_kind(path: str) -> str:
-    try:
-        with open(path, newline="", encoding="utf-8") as f:
-            header = next(csv.reader(f), [])
-    except Exception:
-        return "unknown"
-    cols = set(header)
-    if "LLM_Judgment" in cols and "ID" in cols:
-        return "llm_results"
-    if "ResponseID" in cols and "Intervention" in cols:
-        return "mm"
-    return "unknown"
+class _DatasetGroup:
+    """
+    A named group of same-shaped CSVs living in one subdirectory.
 
+    Parses a CSV on first request via `loader_fn(path, max_rows)` — every
+    loader in this app takes (path, max_rows_or_max_scenarios) positionally
+    — then caches the parsed list/by-id map for the group's lifetime.
+    """
 
-def _list_csvs_by_kind(kind: str) -> List[str]:
-    """CSV filenames at the project root whose header matches the given kind."""
-    paths = glob.glob(os.path.join(_PROJECT_ROOT, "*.csv"))
-    matches = [p for p in paths if _sniff_csv_kind(p) == kind]
-    return sorted(os.path.basename(p) for p in matches)
+    def __init__(self, label: str, dir_path: str, loader_fn, max_rows: int = 50_000):
+        self.label     = label
+        self.dir_path  = dir_path
+        self.loader_fn = loader_fn
+        self.max_rows  = max_rows
+        self._cache: Dict[str, Dict] = {}
 
+    def list_datasets(self) -> List[str]:
+        """CSV filenames found directly in this group's directory."""
+        paths = glob.glob(os.path.join(self.dir_path, "*.csv"))
+        return sorted(os.path.basename(p) for p in paths)
 
-def _resolve_csv_path(filename: str) -> str:
-    """Validate a filename down to a .csv basename that exists at the project root."""
-    safe_name = os.path.basename(filename)
-    if not safe_name.lower().endswith(".csv"):
-        raise HTTPException(status_code=400, detail="Dataset must be a .csv file")
-    path = os.path.join(_PROJECT_ROOT, safe_name)
-    if not os.path.isfile(path):
-        raise HTTPException(status_code=404, detail=f"Dataset '{safe_name}' not found")
-    return path
+    def _resolve_path(self, filename: str) -> str:
+        """Validate a filename down to a .csv basename that exists in this group's directory."""
+        safe_name = os.path.basename(filename)
+        if not safe_name.lower().endswith(".csv"):
+            raise HTTPException(status_code=400, detail="Dataset must be a .csv file")
+        path = os.path.join(self.dir_path, safe_name)
+        if not os.path.isfile(path):
+            raise HTTPException(
+                status_code=404,
+                detail=f"Dataset '{safe_name}' not found in {self.label}",
+            )
+        return path
 
+    def get(self, filename: str) -> Dict:
+        """Load (or return cached) parsed rows for the given CSV filename."""
+        safe_name = os.path.basename(filename)
+        if safe_name in self._cache:
+            return self._cache[safe_name]
 
-# ---------------------------------------------------------------------------
-# Moral Machine dataset cache — CSV files are parsed on first request, then
-# cached by filename so switching datasets doesn't re-parse on every call.
-# ---------------------------------------------------------------------------
+        path = self._resolve_path(safe_name)
+        try:
+            items = self.loader_fn(path, self.max_rows)
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to load {self.label} dataset '{safe_name}': {e}",
+            )
 
-_dataset_cache: Dict[str, Dict] = {}  # filename -> {"list": [...], "by_id": {...}}
-
-
-def _list_available_datasets() -> List[str]:
-    """Moral Machine CSV filenames found at the project root."""
-    return _list_csvs_by_kind("mm")
-
-
-def _get_dataset(filename: str) -> Dict:
-    """Load (or return cached) Moral Machine scenarios for the given CSV filename."""
-    safe_name = os.path.basename(filename)
-    if safe_name in _dataset_cache:
-        return _dataset_cache[safe_name]
-
-    path = _resolve_csv_path(safe_name)
-    try:
-        scenarios = load_csv_scenarios(path, max_scenarios=50_000)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to load dataset '{safe_name}': {e}")
-
-    data = {"list": scenarios, "by_id": {s["response_id"]: s for s in scenarios}}
-    _dataset_cache[safe_name] = data
-    return data
+        data = {"list": items, "by_id": {i["response_id"]: i for i in items}}
+        self._cache[safe_name] = data
+        return data
 
 
-# Pre-warm the default dataset at startup so the first request isn't slow.
+human_data  = _DatasetGroup("Human",      _HUMAN_DATA_DIR,  load_csv_scenarios)
+llm_data    = _DatasetGroup("LLM",        _LLM_DATA_DIR,    load_llm_results)
+debate_data = _DatasetGroup("LLM Debate", _DEBATE_DATA_DIR, load_debate_results)
+
+
+# Pre-warm the default Human dataset at startup so the first request isn't slow.
 try:
-    _default_data = _get_dataset(_DEFAULT_CSV_FILENAME)
+    _default_data = human_data.get(_DEFAULT_CSV_FILENAME)
     print(f"[scenarios] Loaded {len(_default_data['list'])} CSV scenarios from {_DEFAULT_CSV_FILENAME}")
 except Exception as _e:
     print(f"[scenarios] Warning: could not load default CSV scenarios: {_e}")
-
-
-# ---------------------------------------------------------------------------
-# LLM results dataset cache — same caching pattern as the MM dataset cache.
-# ---------------------------------------------------------------------------
-
-_llm_dataset_cache: Dict[str, Dict] = {}  # filename -> {"list": [...], "by_id": {...}}
-
-
-def _list_llm_datasets() -> List[str]:
-    """LLM result CSV filenames found at the project root."""
-    return _list_csvs_by_kind("llm_results")
-
-
-def _get_llm_dataset(filename: str) -> Dict:
-    """Load (or return cached) LLM results for the given CSV filename."""
-    safe_name = os.path.basename(filename)
-    if safe_name in _llm_dataset_cache:
-        return _llm_dataset_cache[safe_name]
-
-    path = _resolve_csv_path(safe_name)
-    try:
-        results = load_llm_results(path, max_rows=50_000)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to load LLM dataset '{safe_name}': {e}")
-
-    data = {"list": results, "by_id": {r["response_id"]: r for r in results}}
-    _llm_dataset_cache[safe_name] = data
-    return data
 
 
 # ===========================================================================
@@ -246,18 +215,18 @@ async def export_scenarios(db: Session = Depends(get_db)):
 
 
 # ===========================================================================
-# Moral Machine CSV Scenario Endpoints
+# Moral Machine CSV Scenario Endpoints — from human-data/
 # ===========================================================================
 
 @router.get("/mm/datasets")
 async def list_mm_datasets():
-    """CSV filenames available at the project root to load scenarios from."""
-    return {"datasets": _list_available_datasets()}
+    """CSV filenames available in human-data/ to load scenarios from."""
+    return {"datasets": human_data.list_datasets()}
 
 
 @router.get("/mm/scenarios")
 async def list_mm_scenarios(skip: int = 0, limit: int = 50, dataset: str = _DEFAULT_CSV_FILENAME):
-    data = _get_dataset(dataset)
+    data = human_data.get(dataset)
     if not data["list"]:
         raise HTTPException(status_code=503, detail="CSV scenario data not available")
     return data["list"][skip: skip + limit]
@@ -265,25 +234,25 @@ async def list_mm_scenarios(skip: int = 0, limit: int = 50, dataset: str = _DEFA
 
 @router.get("/mm/scenarios/random")
 async def get_random_mm_scenario(dataset: str = _DEFAULT_CSV_FILENAME):
-    data = _get_dataset(dataset)
+    data = human_data.get(dataset)
     if not data["list"]:
         raise HTTPException(status_code=503, detail="CSV scenario data not available")
     return random.choice(data["list"])
 
 
 # ===========================================================================
-# LLM Result CSV Endpoints
+# LLM Result CSV Endpoints — from LLM-data/
 # ===========================================================================
 
 @router.get("/llm/datasets")
 async def list_llm_datasets():
-    """CSV filenames available at the project root carrying LLM judgments."""
-    return {"datasets": _list_llm_datasets()}
+    """CSV filenames available in LLM-data/ carrying per-scenario LLM judgments."""
+    return {"datasets": llm_data.list_datasets()}
 
 
 @router.get("/llm/scenarios/random")
 async def get_random_llm_result(dataset: str):
-    data = _get_llm_dataset(dataset)
+    data = llm_data.get(dataset)
     if not data["list"]:
         raise HTTPException(status_code=503, detail="LLM result data not available")
     return random.choice(data["list"])
@@ -291,11 +260,41 @@ async def get_random_llm_result(dataset: str):
 
 @router.get("/llm/scenarios/by-id")
 async def get_llm_result_by_id(dataset: str, response_id: str):
-    data = _get_llm_dataset(dataset)
+    data = llm_data.get(dataset)
     result = data["by_id"].get(response_id)
     if result is None:
         raise HTTPException(
             status_code=404,
             detail=f"No LLM result for response_id '{response_id}' in '{os.path.basename(dataset)}'",
+        )
+    return result
+
+
+# ===========================================================================
+# LLM Debate Result CSV Endpoints — from LLM-debate-data/
+# ===========================================================================
+
+@router.get("/debate/datasets")
+async def list_debate_datasets():
+    """CSV filenames available in LLM-debate-data/ carrying per-scenario debate verdicts."""
+    return {"datasets": debate_data.list_datasets()}
+
+
+@router.get("/debate/scenarios/random")
+async def get_random_debate_result(dataset: str):
+    data = debate_data.get(dataset)
+    if not data["list"]:
+        raise HTTPException(status_code=503, detail="LLM debate result data not available")
+    return random.choice(data["list"])
+
+
+@router.get("/debate/scenarios/by-id")
+async def get_debate_result_by_id(dataset: str, response_id: str):
+    data = debate_data.get(dataset)
+    result = data["by_id"].get(response_id)
+    if result is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No debate result for response_id '{response_id}' in '{os.path.basename(dataset)}'",
         )
     return result

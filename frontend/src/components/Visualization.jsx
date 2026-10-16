@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import AVSimWindow from './AVSimWindow';
 import StatsPanel from './StatsPanel';
 import LLMStatsPanel from './LLMStatsPanel';
+import LLMDebateStatsPanel from './LLMDebateStatsPanel';
 import {
   listDatasets, getRandomScenario, createScenario,
   listLLMDatasets, getLLMResultById, getLLMResultRandom,
+  listDebateDatasets, getDebateResultById, getDebateResultRandom,
 } from '../utils/api';
 import './Visualization.css';
 
@@ -12,12 +14,14 @@ import './Visualization.css';
  * Visualization — top-level layout: three labeled AV-sim windows side by
  * side, driven by the three-section stats row below them.
  *
- * The Human window's "Load CSV" picks a Moral Machine scenario CSV; the LLM
- * window's picks an LLM-result CSV, looked up by the SAME response_id the
- * Human side currently has loaded (so the two sections stay comparable).
- * LLM Debate is wired up but empty for now. All three road windows still
- * mirror the Human scenario/action for now — only the stats row's LLM
- * section is independent so far.
+ * Each window's "Load CSV" picks from its own dataset group: Human browses
+ * human-data/ (Moral Machine scenarios), LLM browses LLM-data/ (per-scenario
+ * LLM judgments), LLM Debate browses LLM-debate-data/ (per-scenario debate
+ * verdicts). The LLM and LLM Debate sections are looked up by the SAME
+ * response_id the Human side currently has loaded, and stay in sync
+ * whenever that changes, so all three stay comparable. All three road
+ * windows still mirror the Human scenario/action for now — only the stats
+ * row is independent so far.
  */
 function Visualization() {
   // ── Human (Moral Machine) state ──
@@ -35,15 +39,25 @@ function Visualization() {
   const [llmLoading, setLlmLoading]         = useState(false);
   const [llmError, setLlmError]             = useState(null);
 
-  // Fetch both dataset lists once, on mount.
+  // ── LLM debate result state ──
+  const [debateDatasets, setDebateDatasets]         = useState([]);
+  const [activeDebateDataset, setActiveDebateDataset] = useState(null);
+  const [debateData, setDebateData]                 = useState(null);
+  const [debateLoading, setDebateLoading]           = useState(false);
+  const [debateError, setDebateError]               = useState(null);
+
+  // Fetch all three dataset lists once, on mount.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const [mmRes, llmRes] = await Promise.all([listDatasets(), listLLMDatasets()]);
+        const [mmRes, llmRes, debateRes] = await Promise.all([
+          listDatasets(), listLLMDatasets(), listDebateDatasets(),
+        ]);
         if (!cancelled) {
           setDatasets(mmRes.datasets || []);
           setLlmDatasets(llmRes.datasets || []);
+          setDebateDatasets(debateRes.datasets || []);
         }
       } catch (err) {
         if (!cancelled) setLoadError(err.message || 'Failed to list datasets');
@@ -69,6 +83,22 @@ function Visualization() {
     }
   }, []);
 
+  // Same as above, for the LLM Debate section.
+  const syncDebateForResponseId = useCallback(async (responseId, datasetFilename) => {
+    if (!datasetFilename || !responseId) return;
+    setDebateLoading(true);
+    setDebateError(null);
+    try {
+      const result = await getDebateResultById(datasetFilename, responseId);
+      setDebateData(result);
+    } catch (err) {
+      setDebateData(null);
+      setDebateError(err.message || `No debate result for ${responseId}`);
+    } finally {
+      setDebateLoading(false);
+    }
+  }, []);
+
   // Load a random Human scenario from the chosen dataset — triggered by the
   // Human window's "Load CSV" menu.
   const handleLoadCSV = useCallback(async (datasetFilename) => {
@@ -86,19 +116,21 @@ function Visualization() {
       setScenario(newScenario);
       setActiveDataset(datasetFilename);
       if (activeLLMDataset) syncLLMForResponseId(newScenario.response_id, activeLLMDataset);
+      if (activeDebateDataset) syncDebateForResponseId(newScenario.response_id, activeDebateDataset);
     } catch (err) {
       setLoadError(err.message || 'Failed to load scenario');
     } finally {
       setLoadingScenario(false);
     }
-  }, [activeLLMDataset, syncLLMForResponseId]);
+  }, [activeLLMDataset, syncLLMForResponseId, activeDebateDataset, syncDebateForResponseId]);
 
   // StatsPanel's "Next Scenario" loads a new Human scenario internally —
-  // this keeps Visualization's response_id (and the LLM section) in sync.
+  // this keeps Visualization's response_id (and the LLM/debate sections) in sync.
   const handleHumanScenarioChange = useCallback((newScenario) => {
     setScenario(newScenario);
     if (activeLLMDataset) syncLLMForResponseId(newScenario.response_id, activeLLMDataset);
-  }, [activeLLMDataset, syncLLMForResponseId]);
+    if (activeDebateDataset) syncDebateForResponseId(newScenario.response_id, activeDebateDataset);
+  }, [activeLLMDataset, syncLLMForResponseId, activeDebateDataset, syncDebateForResponseId]);
 
   // Load an LLM result — triggered by the LLM window's "Load CSV" menu.
   // Looks up the Human side's current response_id if one is loaded,
@@ -120,15 +152,34 @@ function Visualization() {
     }
   }, [scenario]);
 
+  // Load an LLM debate result — triggered by the LLM Debate window's
+  // "Load CSV" menu. Same lookup-by-response_id pattern as the LLM one.
+  const handleLoadDebateCSV = useCallback(async (datasetFilename) => {
+    setDebateLoading(true);
+    setDebateError(null);
+    try {
+      const result = scenario?.response_id
+        ? await getDebateResultById(datasetFilename, scenario.response_id)
+        : await getDebateResultRandom(datasetFilename);
+      setDebateData(result);
+    } catch (err) {
+      setDebateData(null);
+      setDebateError(err.message || 'Failed to load LLM debate result');
+    } finally {
+      setActiveDebateDataset(datasetFilename);
+      setDebateLoading(false);
+    }
+  }, [scenario]);
+
   // Driven by StatsPanel — each phase transition updates all three windows.
   const handleSimStep = useCallback((step) => {
     setSimStep(step.phase === 'done' ? null : step);
   }, []);
 
-  const displayScenario    = simStep?.scenario ?? scenario;
-  const displayAction      = simStep?.result?.action;
-  const displayHarmedGroup = simStep?.result?.harmed_group;
+  const displayScenario = simStep?.scenario ?? scenario;
 
+  // Shared animation TIMING only — which action each window actually shows
+  // is computed independently below, from that window's own recorded choice.
   const activeAnimPhase = (() => {
     if (!simStep) return 'initial';
     switch (simStep.phase) {
@@ -140,12 +191,35 @@ function Visualization() {
     }
   })();
 
-  // Per-window config: Human and LLM Debate browse Moral Machine CSVs (for
-  // now — LLM Debate isn't wired to anything yet), LLM browses LLM result CSVs.
+  // Each window's own recorded choice — the decision depicted in its own
+  // CSV, not a shared/derived recommendation.
+  const humanAction = scenario?.human_choice === 'swerve' ? 'swerve' : scenario?.human_choice === 'stay' ? 'stay' : undefined;
+  const llmAction    = llmData?.llm_judgment === 'swerve' ? 'swerve' : llmData?.llm_judgment === 'stay' ? 'stay' : undefined;
+  const debateIsParseError = debateData?.debate_judgment === 'parse_error';
+  const debateAction = debateData?.debate_judgment === 'swerve' ? 'swerve' : debateData?.debate_judgment === 'stay' ? 'stay' : undefined;
+
+  const harmedGroupFor = (action) => (
+    action === 'stay' ? 'pedestrians' : action === 'swerve' ? 'passengers' : undefined
+  );
+
+  // Per-window config: each browses its own dataset group and shows its own
+  // recorded decision on the road.
   const windowConfigs = [
-    { label: 'Human',      datasets,     onLoadCSV: handleLoadCSV,    loading: loadingScenario },
-    { label: 'LLM',        datasets: llmDatasets, onLoadCSV: handleLoadLLMCSV, loading: llmLoading },
-    { label: 'LLM Debate', datasets: [], onLoadCSV: () => {},         loading: false },
+    {
+      label: 'Human', datasets, activeDataset, onLoadCSV: handleLoadCSV, loading: loadingScenario,
+      action: humanAction, harmedGroup: harmedGroupFor(humanAction),
+      noVerdictLabel: 'No verdict available',
+    },
+    {
+      label: 'LLM', datasets: llmDatasets, activeDataset: activeLLMDataset, onLoadCSV: handleLoadLLMCSV, loading: llmLoading,
+      action: llmAction, harmedGroup: harmedGroupFor(llmAction),
+      noVerdictLabel: 'No verdict available',
+    },
+    {
+      label: 'LLM Debate', datasets: debateDatasets, activeDataset: activeDebateDataset, onLoadCSV: handleLoadDebateCSV, loading: debateLoading,
+      action: debateAction, harmedGroup: harmedGroupFor(debateAction),
+      noVerdictLabel: debateIsParseError ? 'Parse Error' : 'No verdict available',
+    },
   ];
 
   return (
@@ -156,16 +230,18 @@ function Visualization() {
       </div>
 
       <div className="sim-windows-grid">
-        {windowConfigs.map(({ label, datasets: windowDatasets, onLoadCSV, loading }) => (
+        {windowConfigs.map(({ label, datasets: windowDatasets, activeDataset: windowActiveDataset, onLoadCSV, loading, action, harmedGroup, noVerdictLabel }) => (
           <AVSimWindow
             key={label}
             label={label}
             datasets={windowDatasets}
+            activeDataset={windowActiveDataset}
             onLoadCSV={onLoadCSV}
             loadingScenario={loading}
             scenario={displayScenario}
-            action={displayAction}
-            harmedGroup={displayHarmedGroup}
+            action={action}
+            noVerdictLabel={noVerdictLabel}
+            harmedGroup={harmedGroup}
             animPhase={activeAnimPhase}
             isDeciding={simStep?.phase === 'deciding'}
             isLoading={loadingScenario && !displayScenario}
@@ -193,12 +269,12 @@ function Visualization() {
           />
         </div>
         <div className="stats-col">
-          <div className="rl-panel">
-            <div className="rl-panel-header">
-              <h3>LLM Debate</h3>
-              <p className="rl-subtitle">Coming soon.</p>
-            </div>
-          </div>
+          <LLMDebateStatsPanel
+            data={debateData}
+            humanScenario={scenario}
+            loading={debateLoading}
+            error={debateError}
+          />
         </div>
       </div>
     </div>
