@@ -1,0 +1,680 @@
+/* ============================================================
+   StatsPanel.css — Styles for the scenario stats panel
+   ============================================================ */
+
+.rl-panel {
+  background: #1a1a2e;
+  border: 1px solid #2d2d4e;
+  border-radius: 12px;
+  padding: 18px 20px;
+  color: #e0e0e0;
+  font-family: inherit;
+}
+
+.rl-panel-header {
+  margin-bottom: 12px;
+}
+
+.rl-panel-header h3 {
+  margin: 0 0 4px;
+  font-size: 1.2rem;
+  color: #a78bfa;
+  letter-spacing: 0.02em;
+}
+
+.rl-subtitle {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #9ca3af;
+}
+
+/* ── Section ── */
+.rl-section {
+  border-top: 1px solid #2d2d4e;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.rl-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7c7c9e;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rl-voting-method-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a78bfa;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.rl-section-subtitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin: 12px 0 8px;
+}
+
+/* ── Button ── */
+.rl-btn {
+  background: #4c1d95;
+  border: none;
+  border-radius: 8px;
+  color: #e9d5ff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  transition: background 0.2s;
+}
+
+.rl-btn:hover:not(:disabled) {
+  background: #5b21b6;
+}
+
+.rl-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rl-btn-run {
+  background: #065f46;
+  color: #a7f3d0;
+}
+
+.rl-btn-run:hover:not(:disabled) {
+  background: #047857;
+}
+
+/* ── Info rows ── */
+.rl-scenario-info {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rl-info-row,
+.rl-dispersion-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rl-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+.rl-value {
+  font-size: 0.88rem;
+  color: #f3f4f6;
+}
+
+.rl-value.mono {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.78rem;
+  background: #111827;
+  padding: 2px 6px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.rl-count {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* ── Badges ── */
+.rl-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.badge-green {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.badge-red {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.badge-amber {
+  background: #78350f;
+  color: #fcd34d;
+}
+
+/* ── Credence bars ── */
+.rl-credence-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.rl-credence-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  min-width: 175px;
+}
+
+.rl-bar-track {
+  flex: 1;
+  height: 10px;
+  background: #374151;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.rl-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  min-width: 2px;
+}
+
+.rl-bar.deont {
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+.rl-bar.util {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.rl-credence-pct {
+  font-size: 0.8rem;
+  color: #d1d5db;
+  min-width: 46px;
+  text-align: right;
+}
+
+/* ── Dispersion hint ── */
+.rl-hint {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 6px 0 0;
+  font-style: italic;
+}
+
+/* ── Result grid ── */
+.rl-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rl-result-item {
+  background: #111827;
+  border: 1px solid #2d2d4e;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.rl-result-label {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rl-result-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f3f4f6;
+}
+
+.action-stay  { color: #60a5fa; }
+.action-swerve { color: #f59e0b; }
+
+.reward-pos { color: #34d399; }
+.reward-neg { color: #f87171; }
+
+/* ── Q-value bars ── */
+.rl-qvalue-section {
+  margin-top: 8px;
+}
+
+.rl-qvalue-theory {
+  margin-bottom: 10px;
+}
+
+.rl-qvalue-theory-label {
+  font-size: 0.75rem;
+  color: #a78bfa;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.rl-qvalue-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.rl-qvalue-action {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  min-width: 44px;
+}
+
+.qbar-track {
+  flex: 1;
+}
+
+.qbar {
+  background: #4b5563;
+}
+
+.qbar-pos {
+  background: linear-gradient(90deg, #059669, #10b981);
+}
+
+.qbar-neg {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.rl-qvalue-num {
+  font-size: 0.78rem;
+  color: #d1d5db;
+  min-width: 36px;
+  text-align: right;
+  font-family: monospace;
+}
+
+/* ── Human vs Agent compare ── */
+.rl-compare {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.rl-compare-side {
+  text-align: center;
+}
+
+.rl-compare-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.rl-compare-choice {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.rl-compare-vs {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ── Training stats ── */
+.rl-stats-bar {}
+
+.rl-stats-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.rl-stat {
+  text-align: center;
+  min-width: 80px;
+}
+
+.rl-stat-val {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f3f4f6;
+}
+
+.rl-stat-lbl {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Error ── */
+.rl-error {
+  background: #7f1d1d;
+  color: #fca5a5;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-top: 12px;
+}
+
+/* ── Feedback box ── */
+.rl-feedback-box {
+  margin-top: 14px;
+  background: #111827;
+  border: 1px solid #4b3f1a;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.rl-feedback-question {
+  font-size: 0.9rem;
+  color: #e5e7eb;
+  margin: 0 0 12px;
+}
+
+.rl-feedback-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rl-btn-yes {
+  background: #064e3b;
+  color: #a7f3d0;
+  padding: 10px 16px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.rl-btn-yes:hover:not(:disabled) {
+  background: #065f46;
+}
+
+.rl-btn-no {
+  background: #7f1d1d;
+  color: #fca5a5;
+  padding: 10px 16px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.rl-btn-no:hover:not(:disabled) {
+  background: #991b1b;
+}
+
+.rl-btn-next {
+  background: #1e3a5f;
+  color: #93c5fd;
+  padding: 10px 16px;
+}
+
+.rl-btn-next:hover:not(:disabled) {
+  background: #1e40af;
+}
+
+.rl-btn-dataset {
+  background: #3b1f6e;
+  color: #c4b5fd;
+  padding: 10px 16px;
+}
+
+.rl-btn-dataset:hover:not(:disabled) {
+  background: #4c1d95;
+}
+
+
+/* ── Mini-batch retrain toast ── */
+.rl-batch-toast {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #1c1c3a;
+  border: 1px solid #6366f1;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #a5b4fc;
+  animation: rl-fade-in 0.3s ease;
+}
+
+/* ── Buffer progress toward next batch ── */
+.rl-buffer-progress {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.rl-buffer-bar {
+  flex: 1;
+  height: 6px;
+  background: #374151;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.rl-buffer-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ── Scenario context banner ── */
+.rl-scenario-context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  background: #111827;
+  border-radius: 8px;
+  border: 1px solid #1f2937;
+}
+
+.rl-type-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.type-utilitarian    { background: #1e3a5f; color: #93c5fd; }
+.type-gender         { background: #3b1f5e; color: #c4b5fd; }
+.type-age            { background: #1e4d2b; color: #86efac; }
+.type-fitness        { background: #3f2010; color: #fdba74; }
+.type-social-status  { background: #1f2d3d; color: #7dd3fc; }
+.type-species        { background: #2a1a0a; color: #fcd34d; }
+.type-random         { background: #1f2937; color: #9ca3af; }
+.type-llm             { background: #312e81; color: #c7d2fe; }
+
+.rl-attr-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.rl-attr-label strong {
+  color: #e5e7eb;
+}
+
+.rl-pedped-badge {
+  font-size: 0.75rem;
+  color: #6b7280;
+  padding: 2px 8px;
+  background: #1f2937;
+  border-radius: 99px;
+}
+
+@keyframes rl-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Reward Log ── */
+.rl-log-toggle {
+  background: none;
+  border: none;
+  color: #7c7c9e;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0;
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: left;
+}
+
+.rl-log-toggle:hover {
+  color: #a78bfa;
+}
+
+.rl-log-table-wrap {
+  overflow-x: auto;
+}
+
+.rl-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.rl-log-table th {
+  color: #7c7c9e;
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid #2d2d4e;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rl-log-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #1e1e38;
+  color: #c4c4d8;
+  white-space: nowrap;
+}
+
+/* ── Course correction (Q-value before → after) ── */
+.rl-qdelta-arrow {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.rl-qdelta {
+  font-size: 0.78rem;
+  font-family: monospace;
+}
+
+/* ── Session — header reset button ── */
+.rl-session-reset {
+  float: right;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.75rem;
+  color: #6b7280;
+  width: auto;
+  margin: 0;
+}
+
+.rl-session-reset:hover {
+  color: #f87171;
+}
+
+/* ── Session — rolling agreement chart ── */
+.rl-agreement-chart {
+  margin-bottom: 16px;
+}
+
+.rl-agreement-svg {
+  width: 100%;
+  height: 64px;
+  display: block;
+}
+
+.rl-agreement-midline {
+  stroke: #374151;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.rl-agreement-line {
+  fill: none;
+  stroke: #34d399;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rl-agreement-caption {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* ── Session — decision feed ── */
+.rl-feed-list {
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rl-feed-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+  background: #111827;
+  font-size: 0.8rem;
+}
+
+.rl-feed-item.rl-feed-match {
+  border-left-color: #34d399;
+}
+
+.rl-feed-item.rl-feed-mismatch {
+  border-left-color: #f87171;
+}
+
+.rl-feed-num {
+  color: #6b7280;
+  font-family: monospace;
+  min-width: 28px;
+}
+
+.rl-feed-action {
+  font-weight: 600;
+}
+
+.rl-feed-vs {
+  color: #6b7280;
+  font-size: 0.72rem;
+}
+
+.rl-feed-badge {
+  margin-left: auto;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.rl-log-table tbody tr:last-child td {
+  border-bottom: none;
+}

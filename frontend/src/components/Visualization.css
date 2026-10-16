@@ -1,0 +1,447 @@
+/* ── Layout ──
+   Three labeled AV-sim windows side by side, with the single stats panel
+   spanning full width underneath. */
+.visualization {
+  max-width: none;
+}
+
+.viz-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.viz-header h2 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin: 0;
+  flex: 1;
+}
+
+.viz-load-error {
+  font-size: 13px;
+  color: #e53e3e;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   SIM WINDOWS — three side by side
+═══════════════════════════════════════ */
+.sim-windows-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 860px) {
+  .sim-windows-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-window {
+  display: flex;
+  flex-direction: column;
+}
+
+.sim-window-label {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3730a3;
+  background: #eef0fd;
+  border: 1px solid #e0e3fa;
+  border-radius: 8px;
+  padding: 7px 0;
+  margin-bottom: 8px;
+}
+
+/* ── Per-window Load CSV button + dropdown ── */
+.sim-window-load {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.btn-load-csv-window {
+  width: 100%;
+  background: #6366f1;
+  color: white;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-load-csv-window:hover:not(:disabled) { background: #4f46e5; }
+.btn-load-csv-window:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-load-csv-caret {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.sim-window-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: white;
+  border: 1px solid #e0e3fa;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.sim-window-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: white;
+  color: #2c3e50;
+  border: none;
+  border-radius: 0;
+  padding: 9px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  word-break: break-all;
+}
+.sim-window-dropdown-item:hover {
+  background: #eef0fd;
+}
+.sim-window-dropdown-item + .sim-window-dropdown-item {
+  border-top: 1px solid #f0f1fa;
+}
+
+.sim-window-dropdown-empty {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* ═══════════════════════════════════════
+   TWO-LANE ROAD
+═══════════════════════════════════════ */
+.road-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: #3a3a3a;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* Dashed center divider */
+.road-lane-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  margin-left: -1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.55) 0px,
+    rgba(255, 255, 255, 0.55) 18px,
+    transparent 18px,
+    transparent 36px
+  );
+  z-index: 2;
+}
+
+/* Road direction arrows (subtle) */
+.road-dir-arrow {
+  position: absolute;
+  top: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.18);
+  z-index: 3;
+  animation: road-bounce 2s ease-in-out infinite;
+}
+.road-dir-1 { left: 25%; transform: translateX(-50%); }
+.road-dir-2 { left: 75%; transform: translateX(-50%); }
+
+@keyframes road-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(5px); }
+}
+
+/* Crosswalk stripes */
+.road-crosswalk {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 42%;
+  height: 44px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.22) 0px,
+    rgba(255, 255, 255, 0.22) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  z-index: 1;
+}
+
+/* Median barrier — shown only in ped_ped scenarios, runs through the crosswalk */
+.road-crosswalk-median {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 50px;
+  z-index: 4;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    135deg,
+    #f59e0b 0px,
+    #f59e0b 5px,
+    #1a1a1a 5px,
+    #1a1a1a 10px
+  );
+  border: 1.5px solid #92400e;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* ── Character groups ── */
+.road-group {
+  position: absolute;
+  top: 45%;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.road-group-1 { left: 25%; transform: translate(-50%, -50%); }
+.road-group-2 { left: 75%; transform: translate(-50%, -50%); }
+
+.road-group-chars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  max-width: 96px;
+  padding: 5px 7px;
+  background: rgba(0, 0, 0, 0.38);
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s;
+}
+
+.road-group-harmed .road-group-chars {
+  background: rgba(220, 53, 69, 0.55);
+  border-color: rgba(220, 53, 69, 0.7);
+  animation: shake 0.45s;
+}
+
+.road-harm-label {
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #ef4444;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  animation: pop 0.35s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-5px); }
+  75%       { transform: translateX(5px); }
+}
+@keyframes pop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1);  opacity: 1; }
+}
+
+/* Crossing signal boxes — left and right edges of the road at the crosswalk */
+.road-signal {
+  position: absolute;
+  top: 39%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.road-signal-left  { left: 2px; }
+.road-signal-right { right: 2px; }
+
+/* ── Autonomous Vehicle ── */
+.road-av {
+  position: absolute;
+  z-index: 6;
+  transition: left 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              top  1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Passenger cabin shown above the car when AV has occupants */
+.av-cabin {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  background: rgba(37, 99, 235, 0.72);
+  border: 1px solid rgba(147, 197, 253, 0.75);
+  border-radius: 6px;
+  padding: 2px 4px;
+  max-width: 64px;
+  margin-bottom: 3px;
+}
+
+/* Shake the car SVG on barrier impact */
+.road-av-harmed {
+  animation: av-crash 0.5s ease-out;
+}
+
+@keyframes av-crash {
+  0%   { transform: translate(-50%, -50%) translateX(0); }
+  20%  { transform: translate(-50%, -50%) translateX(-5px); }
+  40%  { transform: translate(-50%, -50%) translateX(5px); }
+  60%  { transform: translate(-50%, -50%) translateX(-3px); }
+  80%  { transform: translate(-50%, -50%) translateX(3px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+/* AV position states — translate(-50%, -50%) centers on anchor point. */
+.av-initial {
+  left: 25%;
+  top: 18%;
+  transform: translate(-50%, -50%);
+}
+.av-staying {
+  left: 25%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+}
+.av-swerving {
+  left: 75%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+}
+
+/* Action result label */
+.road-result-overlay {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.82);
+  color: white;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-14px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Deciding badge — shown briefly while Simulate is computing the result */
+.road-deciding-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(55, 48, 163, 0.88);
+  color: #e0e3ff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  z-index: 20;
+  white-space: nowrap;
+  animation: pulse 0.7s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+/* ── Empty-state overlay (shown before any scenario is loaded, or on error) ── */
+.road-empty-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 8;
+  pointer-events: none;
+  line-height: 1.5;
+}
+
+/* ── Idle overlay (shown when a scenario is loaded but not yet simulated) ── */
+.road-idle-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   STATS GRID — three sections: Human / LLM / LLM Debate
+═══════════════════════════════════════ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.stats-col {
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .road-container { height: 260px; }
+}
