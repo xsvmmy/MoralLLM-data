@@ -5,8 +5,8 @@ import LLMStatsPanel from './LLMStatsPanel';
 import LLMDebateStatsPanel from './LLMDebateStatsPanel';
 import {
   listDatasets, getRandomScenario, createScenario,
-  listLLMDatasets, getLLMResultById, getLLMResultRandom,
-  listDebateDatasets, getDebateResultById, getDebateResultRandom,
+  listLLMDatasets, getLLMResultById, getLLMResultRandom, getLLMDatasetStats,
+  listDebateDatasets, getDebateResultById, getDebateResultRandom, getDebateDatasetStats,
 } from '../utils/api';
 import './Visualization.css';
 
@@ -36,6 +36,7 @@ function Visualization() {
   const [llmDatasets, setLlmDatasets]       = useState([]);
   const [activeLLMDataset, setActiveLLMDataset] = useState(null);
   const [llmData, setLlmData]               = useState(null);
+  const [llmStats, setLlmStats]             = useState(null);
   const [llmLoading, setLlmLoading]         = useState(false);
   const [llmError, setLlmError]             = useState(null);
 
@@ -43,6 +44,7 @@ function Visualization() {
   const [debateDatasets, setDebateDatasets]         = useState([]);
   const [activeDebateDataset, setActiveDebateDataset] = useState(null);
   const [debateData, setDebateData]                 = useState(null);
+  const [debateStats, setDebateStats]               = useState(null);
   const [debateLoading, setDebateLoading]           = useState(false);
   const [debateError, setDebateError]               = useState(null);
 
@@ -134,17 +136,23 @@ function Visualization() {
 
   // Load an LLM result — triggered by the LLM window's "Load CSV" menu.
   // Looks up the Human side's current response_id if one is loaded,
-  // otherwise falls back to a random row.
+  // otherwise falls back to a random row. Also pulls this dataset's overall
+  // stay/swerve dispersion (independent of which scenario is shown).
   const handleLoadLLMCSV = useCallback(async (datasetFilename) => {
     setLlmLoading(true);
     setLlmError(null);
     try {
-      const result = scenario?.response_id
-        ? await getLLMResultById(datasetFilename, scenario.response_id)
-        : await getLLMResultRandom(datasetFilename);
+      const [result, stats] = await Promise.all([
+        scenario?.response_id
+          ? getLLMResultById(datasetFilename, scenario.response_id)
+          : getLLMResultRandom(datasetFilename),
+        getLLMDatasetStats(datasetFilename),
+      ]);
       setLlmData(result);
+      setLlmStats(stats);
     } catch (err) {
       setLlmData(null);
+      setLlmStats(null);
       setLlmError(err.message || 'Failed to load LLM result');
     } finally {
       setActiveLLMDataset(datasetFilename);
@@ -153,17 +161,22 @@ function Visualization() {
   }, [scenario]);
 
   // Load an LLM debate result — triggered by the LLM Debate window's
-  // "Load CSV" menu. Same lookup-by-response_id pattern as the LLM one.
+  // "Load CSV" menu. Same lookup-by-response_id + dataset-stats pattern.
   const handleLoadDebateCSV = useCallback(async (datasetFilename) => {
     setDebateLoading(true);
     setDebateError(null);
     try {
-      const result = scenario?.response_id
-        ? await getDebateResultById(datasetFilename, scenario.response_id)
-        : await getDebateResultRandom(datasetFilename);
+      const [result, stats] = await Promise.all([
+        scenario?.response_id
+          ? getDebateResultById(datasetFilename, scenario.response_id)
+          : getDebateResultRandom(datasetFilename),
+        getDebateDatasetStats(datasetFilename),
+      ]);
       setDebateData(result);
+      setDebateStats(stats);
     } catch (err) {
       setDebateData(null);
+      setDebateStats(null);
       setDebateError(err.message || 'Failed to load LLM debate result');
     } finally {
       setActiveDebateDataset(datasetFilename);
@@ -263,6 +276,7 @@ function Visualization() {
         <div className="stats-col">
           <LLMStatsPanel
             data={llmData}
+            stats={llmStats}
             humanScenario={scenario}
             loading={llmLoading}
             error={llmError}
@@ -271,6 +285,7 @@ function Visualization() {
         <div className="stats-col">
           <LLMDebateStatsPanel
             data={debateData}
+            stats={debateStats}
             humanScenario={scenario}
             loading={debateLoading}
             error={debateError}

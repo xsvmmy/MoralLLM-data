@@ -41,7 +41,6 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
 
   const [simulating, setSimulating] = useState(false);
   const [loadingNext, setLoadingNext] = useState(false);
-  const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
   const vote = currentScenario ? computeVoting(currentScenario.credences) : null;
@@ -62,8 +61,6 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
       onRLStep({ phase: 'animating', scenario: currentScenario, result: simResult, episodeNum: null, totalEpisodes: null });
       await delay(850);
       onRLStep({ phase: 'result',    scenario: currentScenario, result: simResult, episodeNum: null, totalEpisodes: null });
-
-      setResult(simResult);
     } catch (e) {
       setError(e.message || 'Failed to simulate scenario');
       onRLStep({ phase: 'done' });
@@ -75,7 +72,6 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
   // ── Load a new random scenario ──
   const handleNextScenario = async () => {
     setLoadingNext(true);
-    setResult(null);
     setError(null);
     try {
       const nextSc = await getRandomScenario(dataset);
@@ -183,31 +179,15 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
 
       {/* ── Crowd Credences ── */}
       <div className="rl-section">
-        <div className="rl-section-title">
-          Crowd Credences
-          {vote && (
-            <span className="rl-voting-method-tag">
-              {vote.method === 'nash' ? '— Strong Consensus' : '— Close Split'}
-            </span>
-          )}
-        </div>
-        {vote && (
-          <p className="rl-hint" style={{ marginTop: 0, marginBottom: 10 }}>
-            {vote.method === 'nash'
-              ? `Strong moral consensus (${(vote.split * 100).toFixed(0)}% gap) — one framework clearly dominates.`
-              : `Frameworks nearly tied (${(vote.split * 100).toFixed(0)}% gap) — recommendation minimizes total moral disagreement.`
-            }
-          </p>
-        )}
         <div className="rl-credence-row">
-          <span className="rl-credence-label">Deontological (stay)</span>
+          <span className="rl-credence-label">Stay</span>
           <div className="rl-bar-track">
             <div className="rl-bar deont" style={{ width: `${vote.deont_pct}%` }} />
           </div>
           <span className="rl-credence-pct">{vote.deont_pct}%</span>
         </div>
         <div className="rl-credence-row">
-          <span className="rl-credence-label">Utilitarian (swerve)</span>
+          <span className="rl-credence-label">Swerve</span>
           <div className="rl-bar-track">
             <div className="rl-bar util" style={{ width: `${vote.util_pct}%` }} />
           </div>
@@ -223,27 +203,6 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
         </div>
       </div>
 
-      {/* ── Scenario Outcome (after Simulate) ── */}
-      {result && !loadingNext && (
-        <div className="rl-section">
-          <div className="rl-section-title">Scenario Outcome</div>
-          <div className="rl-result-grid">
-            <div className="rl-result-item">
-              <div className="rl-result-label">Simulated action</div>
-              <div className={`rl-result-value action-${result.action}`}>
-                {result.action === 'stay' ? 'Stay' : 'Swerve'}
-              </div>
-            </div>
-            <div className="rl-result-item">
-              <div className="rl-result-label">Harmed</div>
-              <div className="rl-result-value">
-                {result.harmed_group === 'passengers' ? 'Lane 2' : 'Pedestrians'}
-                {' '}×{result.harmed_count}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -147,6 +147,14 @@ export async function getLLMResultById(datasetFilename, responseId) {
   );
 }
 
+/**
+ * Fetch this model's stay/swerve dispersion across its whole dataset
+ * (not scenario-specific — a summary of the loaded CSV as a whole).
+ */
+export async function getLLMDatasetStats(datasetFilename) {
+  return fetchAPI(`/api/llm/scenarios/stats?dataset=${encodeURIComponent(datasetFilename)}`);
+}
+
 // ── LLM debate result CSVs ───────────────────────────────────────────────────
 
 /**
@@ -172,4 +180,12 @@ export async function getDebateResultById(datasetFilename, responseId) {
   return fetchAPI(
     `/api/debate/scenarios/by-id?dataset=${encodeURIComponent(datasetFilename)}&response_id=${encodeURIComponent(responseId)}`
   );
+}
+
+/**
+ * Fetch this debate's stay/swerve dispersion across its whole dataset
+ * (not scenario-specific — a summary of the loaded CSV as a whole).
+ */
+export async function getDebateDatasetStats(datasetFilename) {
+  return fetchAPI(`/api/debate/scenarios/stats?dataset=${encodeURIComponent(datasetFilename)}`);
 }

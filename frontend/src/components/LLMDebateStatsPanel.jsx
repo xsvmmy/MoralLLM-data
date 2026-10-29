@@ -30,11 +30,14 @@ function LegalBadge({ tl }) {
  *
  * Props:
  *   data            — matched debate result dict, or null if nothing loaded
+ *   stats           — { total, stay_count, swerve_count, parse_error_count,
+ *                       stay_pct, swerve_pct } for the whole loaded dataset
+ *                       (not scenario-specific), or null
  *   humanScenario   — the Human section's current scenario, for cross-referencing
  *   loading         — true while a load is in flight
  *   error           — error message string, or null
  */
-function LLMDebateStatsPanel({ data, humanScenario, loading, error }) {
+function LLMDebateStatsPanel({ data, stats, humanScenario, loading, error }) {
   const matchesHuman = !!(data && humanScenario && humanScenario.response_id === data.response_id);
   const isParseError = data?.debate_judgment === 'parse_error';
 
@@ -100,6 +103,25 @@ function LLMDebateStatsPanel({ data, humanScenario, loading, error }) {
               </div>
             </div>
           </div>
+
+          {stats && (
+            <div className="rl-section">
+              <div className="rl-credence-row">
+                <span className="rl-credence-label">Stay</span>
+                <div className="rl-bar-track">
+                  <div className="rl-bar deont" style={{ width: `${stats.stay_pct}%` }} />
+                </div>
+                <span className="rl-credence-pct">{stats.stay_pct}%</span>
+              </div>
+              <div className="rl-credence-row">
+                <span className="rl-credence-label">Swerve</span>
+                <div className="rl-bar-track">
+                  <div className="rl-bar util" style={{ width: `${stats.swerve_pct}%` }} />
+                </div>
+                <span className="rl-credence-pct">{stats.swerve_pct}%</span>
+              </div>
+            </div>
+          )}
 
           <div className="rl-section">
             <div className="rl-compare">

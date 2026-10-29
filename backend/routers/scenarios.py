@@ -109,6 +109,36 @@ llm_data    = _DatasetGroup("LLM",        _LLM_DATA_DIR,    load_llm_results)
 debate_data = _DatasetGroup("LLM Debate", _DEBATE_DATA_DIR, load_debate_results)
 
 
+def _choice_dispersion(data: Dict, field: str) -> Dict:
+    """
+    Tally a dataset group's stay/swerve/parse_error values for one field
+    (e.g. "llm_judgment" or "debate_judgment") across every row, and express
+    it as a stay/swerve percentage split — how dispersed vs. one-sided this
+    model's (or debate's) judgments are across the whole dataset.
+
+    parse_error rows are counted but excluded from the stay/swerve
+    percentages, since they're not a real verdict either way.
+    """
+    counts = {"stay": 0, "swerve": 0, "parse_error": 0}
+    for item in data["list"]:
+        v = item.get(field)
+        if v in counts:
+            counts[v] += 1
+
+    total_verdicts = counts["stay"] + counts["swerve"]
+    stay_pct   = round(counts["stay"]   / total_verdicts * 100, 1) if total_verdicts else 0.0
+    swerve_pct = round(counts["swerve"] / total_verdicts * 100, 1) if total_verdicts else 0.0
+
+    return {
+        "total":             len(data["list"]),
+        "stay_count":        counts["stay"],
+        "swerve_count":      counts["swerve"],
+        "parse_error_count": counts["parse_error"],
+        "stay_pct":          stay_pct,
+        "swerve_pct":        swerve_pct,
+    }
+
+
 # Pre-warm the default Human dataset at startup so the first request isn't slow.
 try:
     _default_data = human_data.get(_DEFAULT_CSV_FILENAME)
@@ -270,6 +300,13 @@ async def get_llm_result_by_id(dataset: str, response_id: str):
     return result
 
 
+@router.get("/llm/scenarios/stats")
+async def get_llm_dataset_stats(dataset: str):
+    """Stay/swerve dispersion for this model's judgments across its whole dataset."""
+    data = llm_data.get(dataset)
+    return _choice_dispersion(data, "llm_judgment")
+
+
 # ===========================================================================
 # LLM Debate Result CSV Endpoints — from LLM-debate-data/
 # ===========================================================================
@@ -298,3 +335,10 @@ async def get_debate_result_by_id(dataset: str, response_id: str):
             detail=f"No debate result for response_id '{response_id}' in '{os.path.basename(dataset)}'",
         )
     return result
+
+
+@router.get("/debate/scenarios/stats")
+async def get_debate_dataset_stats(dataset: str):
+    """Stay/swerve dispersion for this debate's final verdicts across its whole dataset."""
+    data = debate_data.get(dataset)
+    return _choice_dispersion(data, "debate_judgment")
