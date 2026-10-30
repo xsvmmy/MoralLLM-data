@@ -1,0 +1,252 @@
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemini_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemini_200_round1_all.csv
+  Timestamp:           2026-10-07 23:52:16
+  Processed:           200
+  Matches human:       116/200 (58.0%)
+  Judge invoked:       N/A
+  Judge parse errors:  8/N/A
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemini_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemini_200_round2_all.csv
+  Timestamp:           2026-10-04 17:07:48
+  Processed:           200
+  Matches human:       117/200 (58.5%)
+  Judge invoked:       22/200
+  Judge parse errors:  11/22 (50.0%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemini_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemini_200_round3_all.csv
+  Timestamp:           2026-10-05 17:19:54
+  Processed:           200
+  Matches human:       115/200 (57.5%)
+  Judge invoked:       19/200
+  Judge parse errors:  6/19 (31.6%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_glm4_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_glm4_200_round1_all.csv
+  Timestamp:           2026-10-08 09:47:05
+  Processed:           200
+  Matches human:       117/200 (58.5%)
+  Judge invoked:       18/200
+  Judge parse errors:  4/18 (22.2%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_glm4_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_glm4_200_round2_all.csv
+  Timestamp:           2026-10-08 20:20:47
+  Processed:           200
+  Matches human:       117/200 (58.5%)
+  Judge invoked:       21/200
+  Judge parse errors:  12/21 (57.1%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_glm4_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_glm4_200_round3_all.csv
+  Timestamp:           2026-10-09 05:56:57
+  Processed:           200
+  Matches human:       119/200 (59.5%)
+  Judge invoked:       15/200
+  Judge parse errors:  2/15 (13.3%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gpt_oss_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gpt_oss_200_round1_all.csv
+  Timestamp:           2026-10-09 15:41:57
+  Processed:           200
+  Matches human:       116/200 (58.0%)
+  Judge invoked:       23/200
+  Judge parse errors:  11/23 (47.8%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gpt_oss_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gpt_oss_200_round2_all.csv
+  Timestamp:           2026-10-10 00:57:29
+  Processed:           200
+  Matches human:       116/200 (58.0%)
+  Judge invoked:       20/200
+  Judge parse errors:  10/20 (50.0%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gpt_oss_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gpt_oss_200_round3_all.csv
+  Timestamp:           2026-10-10 10:51:53
+  Processed:           200
+  Matches human:       114/200 (57.0%)
+  Judge invoked:       21/200
+  Judge parse errors:  9/21 (42.9%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_llama4_scout_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_llama4_scout_200_round1_all.csv
+  Timestamp:           2026-10-10 20:11:36
+  Processed:           200
+  Matches human:       120/200 (60.0%)
+  Judge invoked:       16/200
+  Judge parse errors:  3/16 (18.8%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_llama4_scout_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_llama4_scout_200_round2_all.csv
+  Timestamp:           2026-10-11 05:11:38
+  Processed:           200
+  Matches human:       119/200 (59.5%)
+  Judge invoked:       14/200
+  Judge parse errors:  4/14 (28.6%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_llama4_scout_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_llama4_scout_200_round3_all.csv
+  Timestamp:           2026-10-11 14:33:37
+  Processed:           200
+  Matches human:       116/200 (58.0%)
+  Judge invoked:       18/200
+  Judge parse errors:  9/18 (50.0%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_mistral_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_mistral_200_round1_all.csv
+  Timestamp:           2026-10-11 23:38:21
+  Processed:           200
+  Matches human:       118/200 (59.0%)
+  Judge invoked:       17/200
+  Judge parse errors:  8/17 (47.1%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_mistral_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_mistral_200_round2_all.csv
+  Timestamp:           2026-10-12 08:37:44
+  Processed:           200
+  Matches human:       120/200 (60.0%)
+  Judge invoked:       10/200
+  Judge parse errors:  7/10 (70.0%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_mistral_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_mistral_200_round3_all.csv
+  Timestamp:           2026-10-12 17:47:08
+  Processed:           200
+  Matches human:       121/200 (60.5%)
+  Judge invoked:       13/200
+  Judge parse errors:  4/13 (30.8%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_phi4_14b_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_phi4_14b_200_round1_all.csv
+  Timestamp:           2026-10-13 03:29:19
+  Processed:           200
+  Matches human:       118/200 (59.0%)
+  Judge invoked:       17/200
+  Judge parse errors:  6/17 (35.3%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_phi4_14b_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_phi4_14b_200_round2_all.csv
+  Timestamp:           2026-10-13 13:10:39
+  Processed:           200
+  Matches human:       120/200 (60.0%)
+  Judge invoked:       14/200
+  Judge parse errors:  4/14 (28.6%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_phi4_14b_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_phi4_14b_200_round3_all.csv
+  Timestamp:           2026-10-14 00:10:16
+  Processed:           200
+  Matches human:       122/200 (61.0%)
+  Judge invoked:       19/200
+  Judge parse errors:  3/19 (15.8%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemma4_200_round1.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemma4_200_round1_all.csv
+  Timestamp:           2026-10-06 17:04:33
+  Processed:           200
+  Matches human:       121/200 (60.5%)
+  Judge invoked:       18/200
+  Judge parse errors:  8/18 (44.4%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemma4_200_round2.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemma4_200_round2_all_all.csv
+  Timestamp:           2026-10-16 08:29:00
+  Processed:           200
+  Matches human:       119/200 (59.5%)
+  Judge invoked:       14/200
+  Judge parse errors:  3/14 (21.4%)
+============================================================
+
+============================================================
+  DEBATE PIPELINE COMPLETE
+============================================================
+  Input:               /home/icr42/new-files/debate/../../1001-200-outputs/nh_alph_1v1_200_results_gemma4_200_round3.csv
+  Output:              /home/icr42/new-files/debate/../../1001-200-debate-outputs/NH_LS_DEBATE_RES_nh_alph_1v1_200_results_gemma4_200_round3_all_all.csv
+  Timestamp:           2026-10-16 08:29:00
+  Processed:           200
+  Matches human:       117/200 (58.5%)
+  Judge invoked:       17/200
+  Judge parse errors:  5/17 (29.4%)
+============================================================
