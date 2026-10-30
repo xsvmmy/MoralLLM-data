@@ -14,6 +14,7 @@ Includes:
 import glob
 import os
 import random
+import re
 from typing import Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -98,6 +99,14 @@ class _DatasetGroup:
                 status_code=500,
                 detail=f"Failed to load {self.label} dataset '{safe_name}': {e}",
             )
+
+        # Round number lives only in the filename (e.g. "..._round2_all.csv"),
+        # not as a CSV column — stamp it onto every row so the frontend can
+        # show it next to the model name.
+        round_match = re.search(r"round(\d+)", safe_name, re.IGNORECASE)
+        round_num = int(round_match.group(1)) if round_match else None
+        for item in items:
+            item["round"] = round_num
 
         data = {"list": items, "by_id": {i["response_id"]: i for i in items}}
         self._cache[safe_name] = data

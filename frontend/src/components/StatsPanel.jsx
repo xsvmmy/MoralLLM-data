@@ -97,7 +97,7 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
       <div className="rl-panel-header">
         <h3>MM Scenarios</h3>
         <p className="rl-subtitle">
-          Browse real Moral Machine dilemmas. This is raw dataset data only, no RL agent involved.
+          Aggregate survey responses from the Moral Machine dataset.
         </p>
       </div>
 
@@ -195,7 +195,7 @@ function StatsPanel({ scenario, dataset, onRLStep, onScenarioChange }) {
         </div>
         <div className="rl-compare" style={{ marginTop: 12 }}>
           <div className="rl-compare-side">
-            <div className="rl-compare-label">Human Choice</div>
+            <div className="rl-compare-label">Human Majority Choice</div>
             <div className={`rl-compare-choice action-${currentScenario.human_choice}`}>
               {currentScenario.human_choice === 'stay' ? 'Stay' : 'Swerve'}
             </div>

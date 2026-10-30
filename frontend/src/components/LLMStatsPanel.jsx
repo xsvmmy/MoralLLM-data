@@ -45,7 +45,7 @@ function LLMStatsPanel({ data, stats, humanScenario, loading, error }) {
       <div className="rl-panel-header">
         <h3>LLM Sim</h3>
         <p className="rl-subtitle">
-          One LLM's stay/swerve judgment for this scenario, from a CSV of prior results.
+          One LLM's stay/swerve judgment for this scenario.
         </p>
       </div>
 
@@ -69,7 +69,9 @@ function LLMStatsPanel({ data, stats, humanScenario, loading, error }) {
             <div className="rl-section-title">Current Scenario</div>
 
             <div className="rl-scenario-context">
-              <span className="rl-type-badge type-llm">{data.model || 'Unknown model'}</span>
+              <span className="rl-type-badge type-llm">
+                {data.model || 'Unknown model'}{data.round != null ? ` (Round ${data.round})` : ''}
+              </span>
               {!matchesHuman && (
                 <span className="rl-pedped-badge">Not matched to Human side</span>
               )}

@@ -70,7 +70,9 @@ function LLMDebateStatsPanel({ data, stats, humanScenario, loading, error }) {
             <div className="rl-section-title">Current Scenario</div>
 
             <div className="rl-scenario-context">
-              <span className="rl-type-badge type-debate">{data.model || 'Unknown model'}</span>
+              <span className="rl-type-badge type-debate">
+                {data.model || 'Unknown model'}{data.round != null ? ` (Round ${data.round})` : ''}
+              </span>
               {!matchesHuman && (
                 <span className="rl-pedped-badge">Not matched to Human side</span>
               )}
