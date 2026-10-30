@@ -1,0 +1,340 @@
+======================================================================
+  H CONDITION — 1v1 200-SCENARIO ACCURACY LOG
+  Generated : 2026-10-14 20:45:49
+  Source    : /Users/sammy/Desktop/ind-study/ModelLLM/MoralLLM/1001-200-h-outputs
+  IDs from  : data/1v1-ff-n24-all-200-prompts.csv
+  Models    : llama4_scout, mistral, gpt_oss, gemma4, glm4, phi4_14b, gemini
+======================================================================
+
+======================================================================
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 93/200 (46.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 162
+    Common Sense Morality: 17
+    Virtue Ethics: 15
+    Deontology: 4
+    Justice: 2
+======================================================================
+
+======================================================================
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 98/200 (49.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 160
+    Common Sense Morality: 22
+    Virtue Ethics: 9
+    Deontology: 5
+    Justice: 4
+======================================================================
+
+======================================================================
+Model: llama4_scout
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 90/200 (45.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 164
+    Common Sense Morality: 18
+    Virtue Ethics: 9
+    Deontology: 5
+    Justice: 3
+    UNRECOGNIZED: 1
+======================================================================
+
+======================================================================
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 173/200 (86.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 162
+    Deontology: 18
+    Common Sense Morality: 6
+    Virtue Ethics: 2
+    Justice: 1
+    UNRECOGNIZED: 11
+======================================================================
+
+======================================================================
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 171/200 (85.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 168
+    Deontology: 14
+    Common Sense Morality: 3
+    Virtue Ethics: 2
+    Justice: 1
+    UNRECOGNIZED: 12
+======================================================================
+
+======================================================================
+Model: mistral
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 166/200 (83.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 152
+    Deontology: 19
+    Common Sense Morality: 10
+    Justice: 1
+    Virtue Ethics: 1
+    UNRECOGNIZED: 17
+======================================================================
+
+======================================================================
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 127/200 (63.50%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 115
+    Utilitarianism: 46
+    Deontology: 20
+    Virtue Ethics: 11
+    Justice: 8
+======================================================================
+
+======================================================================
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 124/200 (62.00%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 131
+    Utilitarianism: 44
+    Deontology: 16
+    Justice: 5
+    Virtue Ethics: 3
+    UNRECOGNIZED: 1
+======================================================================
+
+======================================================================
+Model: gpt_oss
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 131/200 (65.50%)
+Ethical Framework Selection (valid responses only):
+    Common Sense Morality: 122
+    Utilitarianism: 47
+    Deontology: 20
+    Virtue Ethics: 8
+    Justice: 3
+======================================================================
+
+======================================================================
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 195/200
+Agreement with Humans: 106/195 (54.36%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 93
+    Justice: 77
+    Utilitarianism: 16
+    Common Sense Morality: 7
+    Virtue Ethics: 2
+======================================================================
+
+======================================================================
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 199/200
+Agreement with Humans: 103/199 (51.76%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 101
+    Justice: 74
+    Utilitarianism: 16
+    Common Sense Morality: 5
+    Virtue Ethics: 3
+======================================================================
+
+======================================================================
+Model: gemma4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 197/200
+Agreement with Humans: 111/197 (56.35%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 99
+    Justice: 74
+    Utilitarianism: 18
+    Common Sense Morality: 6
+======================================================================
+
+======================================================================
+Model: glm4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 198/200 (99.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 116
+    Deontology: 35
+    Common Sense Morality: 16
+    Virtue Ethics: 10
+    UNRECOGNIZED: 23
+======================================================================
+
+======================================================================
+Model: glm4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 198/200 (99.00%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 122
+    Deontology: 34
+    Common Sense Morality: 13
+    Virtue Ethics: 10
+    Justice: 2
+    UNRECOGNIZED: 19
+======================================================================
+
+======================================================================
+Model: glm4
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 197/200 (98.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 112
+    Deontology: 40
+    Common Sense Morality: 22
+    Virtue Ethics: 7
+    Justice: 3
+    UNRECOGNIZED: 16
+======================================================================
+
+======================================================================
+Model: phi4_14b
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 197/200
+Agreement with Humans: 131/197 (66.50%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 125
+    Utilitarianism: 32
+    Justice: 19
+    Common Sense Morality: 14
+    Virtue Ethics: 2
+    UNRECOGNIZED: 5
+======================================================================
+
+======================================================================
+Model: phi4_14b
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 198/200
+Agreement with Humans: 132/198 (66.67%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 136
+    Utilitarianism: 24
+    Justice: 17
+    Common Sense Morality: 12
+    Virtue Ethics: 6
+    UNRECOGNIZED: 3
+======================================================================
+
+======================================================================
+Model: phi4_14b
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 197/200
+Agreement with Humans: 126/197 (63.96%)
+Ethical Framework Selection (valid responses only):
+    Deontology: 119
+    Utilitarianism: 37
+    Justice: 21
+    Common Sense Morality: 12
+    Virtue Ethics: 2
+    UNRECOGNIZED: 6
+======================================================================
+
+======================================================================
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 1
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 157/200 (78.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 200
+======================================================================
+
+======================================================================
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 2
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 157/200 (78.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 200
+======================================================================
+
+======================================================================
+Model: gemini
+Prompting Strategy: zero-shot
+Condition: human response provided
+Round: 3
+Total Scenarios: 200
+Valid Responses: 200/200
+Agreement with Humans: 157/200 (78.50%)
+Ethical Framework Selection (valid responses only):
+    Utilitarianism: 200
+======================================================================
